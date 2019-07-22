@@ -1,0 +1,18 @@
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+
+import store from '../store';
+
+const GhestRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => (!store.getState().auth.signedIn ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+    ))
+    }
+  />
+);
+
+export default GhestRoute;
